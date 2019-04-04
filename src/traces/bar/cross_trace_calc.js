@@ -119,7 +119,7 @@ function initBase(gd, pa, sa, calcTraces) {
     for(i = 0; i < calcTraces.length; i++) {
         var cd = calcTraces[i];
         var trace = cd[0].trace;
-        var base = trace.base;
+        var base = trace.base || trace._base;
         var b;
 
         // not sure if it really makes sense to have dates for bar size data...
