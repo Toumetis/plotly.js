@@ -55,4 +55,18 @@ module.exports = function crossTraceCalc(gd, plotinfo) {
 
     setGroupPositions(mockGd, xa, ya, funnelsVert);
     setGroupPositions(mockGd, ya, xa, funnelsHorz);
+
+    for(i = 0; i < funnels.length; i++) {
+        cd = funnels[i];
+
+        for(var j = 0; j < cd.length; j++) {
+            if(j + 1 < cd.length) {
+                cd[j].nextP0 = cd[j + 1].p0;
+                cd[j].nextS0 = cd[j + 1].s0;
+
+                cd[j].nextP1 = cd[j + 1].p1;
+                cd[j].nextS1 = cd[j + 1].s1;
+            }
+        }
+    }
 };

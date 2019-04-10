@@ -11,6 +11,7 @@
 var Axes = require('../../plots/cartesian/axes');
 var mergeArray = require('../../lib').mergeArray;
 var calcSelection = require('../scatter/calc_selection');
+var BADNUM = require('../../constants/numerical').BADNUM;
 
 module.exports = function calc(gd, trace) {
     var xa = Axes.getFromId(gd, trace.xaxis || 'x');
@@ -33,9 +34,17 @@ module.exports = function calc(gd, trace) {
 
     // set position and size
     for(var i = 0; i < serieslen; i++) {
+        var connectToNext = false;
+        if(size[i] !== BADNUM) {
+            if(i + 1 < serieslen && size[i + 1] !== BADNUM) {
+                connectToNext = true;
+            }
+        }
+
         cd[i] = {
             p: pos[i],
-            s: size[i]
+            s: size[i],
+            cNext: connectToNext
         };
 
         trace._base[i] = -0.5 * size[i];
