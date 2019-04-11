@@ -84,6 +84,7 @@ module.exports = function style(s, gd) {
             .classed('legendpoints', true);
     })
     .each(styleWaterfalls)
+    .each(styleFunnels)
     .each(styleBars)
     .each(styleBoxes)
     .each(stylePies)
@@ -301,6 +302,36 @@ module.exports = function style(s, gd) {
 
             if(lw) {
                 pt.call(Color.stroke, cont.line.color);
+            }
+        });
+    }
+
+    function styleFunnels(d) {
+        var trace = d[0].trace;
+
+        var ptsData = [];
+        if(trace.type === 'funnel' && trace.visible) {
+            ptsData = ['M6,6V-6H-6Z'];
+        }
+
+        var pts = d3.select(this).select('g.legendpoints')
+            .selectAll('path.legendfunnel')
+            .data(ptsData);
+        pts.enter().append('path').classed('legendfunnel', true)
+            .attr('transform', 'translate(20,0)')
+            .style('stroke-miterlimit', 1);
+        pts.exit().remove();
+
+        pts.each(function(d) {
+            var pt = d3.select(this);
+            var lw = boundLineWidth(undefined, trace.marker.line, MAX_MARKER_LINE_WIDTH, CST_MARKER_LINE_WIDTH);
+
+            pt.attr('d', d)
+                .style('stroke-width', lw + 'px')
+                .call(Color.fill, trace.marker.color);
+
+            if(lw) {
+                pt.call(Color.stroke, trace.marker.line.color);
             }
         });
     }

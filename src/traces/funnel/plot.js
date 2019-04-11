@@ -77,21 +77,23 @@ function plotConnectors(gd, plotinfo, cdModule, traceLayer) {
                 y3 = pAxis.c2p(di.nextP1, true);
             }
 
-            if(mode === 'spanning') {
-                if(isHorizontal) {
-                    shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y3;
-                    shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y3;
-                } else {
-                    shape += 'M' + y2 + ',' + x0 + 'L' + y3 + ',' + x1;
-                    shape += 'M' + y2 + ',' + x2 + 'L' + y3 + ',' + x3;
-                }
-            } else { // 'between'
-                if(isHorizontal) {
-                    shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y1;
-                    shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y1;
-                } else {
-                    shape += 'M' + y2 + ',' + x2 + 'L' + y1 + ',' + x3;
-                    shape += 'M' + y2 + ',' + x0 + 'L' + y1 + ',' + x1;
+            if(x3 !== undefined && y3 !== undefined) {
+                if(mode === 'spanning') {
+                    if(isHorizontal) {
+                        shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y3;
+                        shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y3;
+                    } else {
+                        shape += 'M' + y2 + ',' + x0 + 'L' + y3 + ',' + x1;
+                        shape += 'M' + y2 + ',' + x2 + 'L' + y3 + ',' + x3;
+                    }
+                } else { // 'between'
+                    if(isHorizontal) {
+                        shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y1;
+                        shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y1;
+                    } else {
+                        shape += 'M' + y2 + ',' + x2 + 'L' + y1 + ',' + x3;
+                        shape += 'M' + y2 + ',' + x0 + 'L' + y1 + ',' + x1;
+                    }
                 }
             }
 
