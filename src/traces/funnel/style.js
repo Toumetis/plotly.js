@@ -29,9 +29,9 @@ function style(gd, cd) {
                 var cont = trace.marker;
 
                 d3.select(this)
-                    .call(Color.fill, cont.color)
-                    .call(Color.stroke, cont.line.color)
-                    .call(Drawing.dashLine, cont.line.dash, cont.line.width)
+                    .call(Color.fill, di.mc || cont.color)
+                    .call(Color.stroke, di.mlc || cont.line.color)
+                    .call(Drawing.dashLine, cont.line.dash, di.mlw || cont.line.width)
                     .style('opacity', trace.selectedpoints && !di.selected ? 0.3 : 1);
             }
         });

@@ -29,9 +29,9 @@
             "connector": {
                 "mode": "spanning",
                 "line": {
-                    "width": 4,
                     "color": "rgb(127, 127, 127)",
-                    "dash": 10
+                    "dash": 10,
+                    "width": 4
                 }
             }
         },
@@ -64,16 +64,16 @@
             "connector": {
                 "mode": "between",
                 "line": {
-                    "width": 2,
                     "color": "rgb(0, 0, 0)",
-                    "dash": 0
+                    "dash": 0,
+                    "width": 2
                 }
             },
             "marker": {
                 "line": {
-                    "width": 2,
                     "color": "rgb(255, 0, 0)",
-                    "dash": 10
+                    "dash": 10,
+                    "width": 2
                 }
             }
         }
@@ -92,7 +92,7 @@
         "margin": { "l": 150 },
         "height": 800,
         "width": 800,
-        "funnelmode": "overlay",
+        "funnelmode": "group",
         "showlegend": true
     }
 }

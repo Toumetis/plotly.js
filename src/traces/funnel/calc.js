@@ -56,6 +56,20 @@ module.exports = function calc(gd, trace) {
 
     mergeArray(trace.text, cd, 'tx');
     mergeArray(trace.hovertext, cd, 'htx');
+
+    var marker = trace.marker;
+    if(marker) {
+        mergeArray(marker.opacity, cd, 'mo');
+        mergeArray(marker.color, cd, 'mc');
+
+        var markerLine = marker.line;
+        if(markerLine) {
+            mergeArray(markerLine.color, cd, 'mlc');
+            mergeArray(markerLine.width, cd, 'mlw');
+            mergeArray(markerLine.dash, cd, 'mld');
+        }
+    }
+
     calcSelection(cd, trace);
 
     return cd;

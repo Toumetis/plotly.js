@@ -18,16 +18,20 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode) {
     var cd = point.cd;
     var trace = cd[0].trace;
 
-    point.color = getTraceColor(trace);
+    // the closest data point
+    var index = point.index;
+    var di = cd[index];
+
+    point.color = getTraceColor(trace, di);
 
     return [point];
 };
 
-function getTraceColor(trace) {
+function getTraceColor(trace, di) {
     var cont = trace.marker;
-    var mc = cont.color;
-    var mlc = cont.line.color;
-    var mlw = cont.line.width;
+    var mc = di.mc || cont.color;
+    var mlc = di.mlc || cont.line.color;
+    var mlw = di.mlw || cont.line.width;
     if(opacity(mc)) return mc;
     else if(opacity(mlc) && mlw) return mlc;
 }

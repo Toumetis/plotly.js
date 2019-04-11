@@ -55,16 +55,14 @@ function plotConnectors(gd, plotinfo, cdModule, traceLayer) {
             var connector = d3.select(this);
             var shape = '';
 
-            var x0, y0;
-            var x1, y1;
-            var x2, y2;
-            var x3, y3;
 
             var sAxis = (isHorizontal) ? xa : ya;
             var pAxis = (isHorizontal) ? ya : xa;
 
-            x0 = sAxis.c2p(di.s0, true);
-            y0 = pAxis.c2p(di.p0, true);
+            var x0 = sAxis.c2p(di.s0, true);
+            var x1, y1;
+            var x2, y2;
+            var x3, y3;
 
             if(i + 1 < len) {
                 x1 = sAxis.c2p(di.nextS0, true);
@@ -79,23 +77,21 @@ function plotConnectors(gd, plotinfo, cdModule, traceLayer) {
                 y3 = pAxis.c2p(di.nextP1, true);
             }
 
-            if(x3 !== undefined && y3 !== undefined) {
-                if(mode === 'spanning') {
-                    if(isHorizontal) {
-                        shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y3;
-                        shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y3;
-                    } else {
-                        shape += 'M' + y0 + ',' + x2 + 'L' + y1 + ',' + x3;
-                        shape += 'M' + y2 + ',' + x2 + 'L' + y3 + ',' + x3;
-                    }
-                } else { // 'between'
-                    if(isHorizontal) {
-                        shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y1;
-                        shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y1;
-                    } else {
-                        shape += 'M' + y0 + ',' + x2 + 'L' + y1 + ',' + x1;
-                        shape += 'M' + y2 + ',' + x2 + 'L' + y3 + ',' + x1;
-                    }
+            if(mode === 'spanning') {
+                if(isHorizontal) {
+                    shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y3;
+                    shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y3;
+                } else {
+                    shape += 'M' + y2 + ',' + x0 + 'L' + y3 + ',' + x1;
+                    shape += 'M' + y2 + ',' + x2 + 'L' + y3 + ',' + x3;
+                }
+            } else { // 'between'
+                if(isHorizontal) {
+                    shape += 'M' + x0 + ',' + y2 + 'L' + x1 + ',' + y1;
+                    shape += 'M' + x2 + ',' + y2 + 'L' + x3 + ',' + y1;
+                } else {
+                    shape += 'M' + y2 + ',' + x2 + 'L' + y1 + ',' + x3;
+                    shape += 'M' + y2 + ',' + x0 + 'L' + y1 + ',' + x1;
                 }
             }
 
