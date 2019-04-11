@@ -306,40 +306,26 @@ module.exports = function style(s, gd) {
         });
     }
 
-    function styleFunnels(d) {
-        var trace = d[0].trace;
-        var marker = trace.marker || {};
-        var markerLine = marker.line || {};
-
-        var barpath = d3.select(this).select('g.legendpoints')
-            .selectAll('path.legendfunnel')
-            .data((trace.type === 'funnel' && trace.visible) ? [d] : []);
-        barpath.enter().append('path').classed('legendfunnel', true)
-            .attr('d', 'M6,6H-6V-6H6Z')
-            .attr('transform', 'translate(20,0)');
-        barpath.exit().remove();
-
-        barpath.each(function(d) {
-            var p = d3.select(this);
-            var d0 = d[0];
-            var w = boundLineWidth(d0.mlw, marker.line, MAX_MARKER_LINE_WIDTH, CST_MARKER_LINE_WIDTH);
-
-            p.style('stroke-width', w + 'px')
-                .call(Color.fill, d0.mc || marker.color);
-
-            if(w) Color.stroke(p, d0.mlc || markerLine.color);
-        });
+    function styleBars(d) {
+        styleBarFamily(d, this);
     }
 
-    function styleBars(d) {
+    function styleFunnels(d) {
+        styleBarFamily(d, this, 'funnel');
+    }
+
+    function styleBarFamily(d, lThis, desiredType) {
         var trace = d[0].trace;
         var marker = trace.marker || {};
         var markerLine = marker.line || {};
 
-        var barpath = d3.select(this).select('g.legendpoints')
-            .selectAll('path.legendbar')
-            .data(Registry.traceIs(trace, 'bar') ? [d] : []);
-        barpath.enter().append('path').classed('legendbar', true)
+        var selection = (!desiredType) ? Registry.traceIs(trace, 'bar') :
+            (trace.type === desiredType && trace.visible);
+
+        var barpath = d3.select(lThis).select('g.legendpoints')
+            .selectAll('path.legend' + desiredType)
+            .data(selection ? [d] : []);
+        barpath.enter().append('path').classed('legend' + desiredType, true)
             .attr('d', 'M6,6H-6V-6H6Z')
             .attr('transform', 'translate(20,0)');
         barpath.exit().remove();
