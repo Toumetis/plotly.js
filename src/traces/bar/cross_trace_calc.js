@@ -524,24 +524,67 @@ function setBaseAndTop(gd, sa, sieve) {
     }
 }
 
+function computeTotalVaules(calcTraces) {
+    var totalValues = [];
+
+    for(var i = 0; i < calcTraces.length; i++) {
+        var calcTrace = calcTraces[i];
+        var fullTrace = calcTrace[0].trace;
+
+        var isFunnel = (fullTrace.type === 'funnel');
+        if(!isFunnel) continue; // for the moment we only need to compute this for funnels
+
+        for(var j = 0; j < calcTrace.length; j++) {
+            totalValues[j] = totalValues[j] || 0;
+
+            var bar = calcTrace[j];
+            if(bar.s !== BADNUM) {
+                totalValues[j] += bar.s;
+            }
+        }
+    }
+
+    return totalValues;
+}
+
 function stackBars(gd, sa, sieve) {
     var fullLayout = gd._fullLayout;
     var barnorm = fullLayout.barnorm;
     var sLetter = getAxisLetter(sa);
     var calcTraces = sieve.traces;
 
+    var totalValues = computeTotalVaules(sieve.traces);
+    var seen = [];
+
     for(var i = 0; i < calcTraces.length; i++) {
         var calcTrace = calcTraces[i];
         var fullTrace = calcTrace[0].trace;
         var pts = [];
+
+        var isFunnel = (fullTrace.type === 'funnel');
 
         for(var j = 0; j < calcTrace.length; j++) {
             var bar = calcTrace[j];
 
             if(bar.s !== BADNUM) {
                 // stack current bar and get previous sum
-                var base = sieve.put(bar.p, bar.b + bar.s);
-                var top = base + bar.b + bar.s;
+                var value;
+                if(isFunnel) {
+                    value = bar.s;
+                } else {
+                    value = bar.s + bar.b;
+                }
+
+                var base;
+                if(isFunnel) {
+                    if(!seen[j]) {
+                        seen[j] = true;
+                        base = sieve.put(bar.p, -0.5 * totalValues[j]);
+                    }
+                }
+                base = sieve.put(bar.p, value);
+
+                var top = base + value;
 
                 // store the bar base and top in each calcdata item
                 bar.b = base;
@@ -549,7 +592,9 @@ function stackBars(gd, sa, sieve) {
 
                 if(!barnorm) {
                     pts.push(top);
-                    if(bar.hasB) pts.push(base);
+                    if(bar.hasB) {
+                        pts.push(base);
+                    }
                 }
             }
         }

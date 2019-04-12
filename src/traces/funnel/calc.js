@@ -9,7 +9,6 @@
 'use strict';
 
 var Axes = require('../../plots/cartesian/axes');
-var mergeArray = require('../../lib').mergeArray;
 var arraysToCalcdata = require('./arrays_to_calcdata');
 var calcSelection = require('../scatter/calc_selection');
 var BADNUM = require('../../constants/numerical').BADNUM;

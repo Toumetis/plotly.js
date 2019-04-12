@@ -11,13 +11,14 @@
 module.exports = {
     funnelmode: {
         valType: 'enumerated',
-        values: ['group', 'overlay'],
+        values: ['stack', 'group', 'overlay'],
         dflt: 'group',
         role: 'info',
         editType: 'calc',
         description: [
             'Determines how bars at the same location coordinate',
             'are displayed on the graph.',
+            'With *stack*, the bars are stacked on top of one another',
             'With *group*, the bars are plotted next to one another',
             'centered around the shared location.',
             'With *overlay*, the bars are plotted over one another,',
