@@ -29,6 +29,7 @@ module.exports = function(layoutIn, layoutOut, fullData) {
 
     if(hasTraceType) {
         coerce('funnelmode');
+        coerce('funnelnorm');
         coerce('funnelgap', 0.2);
         coerce('funnelgroupgap');
     }

@@ -42,12 +42,13 @@ module.exports = function crossTraceCalc(gd, plotinfo) {
         }
     }
 
-    // funnel version of 'barmode', 'bargap' and 'bargroupgap'
+    // funnel version of 'barmode', 'barnorm', 'bargap' and 'bargroupgap'
     var mockGd = {
         _fullLayout: {
             _axisMatchGroups: fullLayout._axisMatchGroups,
             _alignmentOpts: fullLayout._alignmentOpts,
             barmode: fullLayout.funnelmode,
+            barnorm: fullLayout.funnelnorm,
             bargap: fullLayout.funnelgap,
             bargroupgap: fullLayout.funnelgroupgap
         }
