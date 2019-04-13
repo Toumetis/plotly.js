@@ -32,6 +32,7 @@ module.exports = {
     cliponaxis: barAttrs.cliponaxis,
     orientation: barAttrs.orientation,
 
+    offset: barAttrs.offset,
     width: barAttrs.width,
 
     marker: barAttrs.marker,

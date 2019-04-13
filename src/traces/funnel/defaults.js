@@ -28,6 +28,7 @@ function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
     }
 
     coerce('orientation', (traceOut.x && !traceOut.y) ? 'h' : 'v');
+    coerce('offset');
     coerce('width');
 
     coerce('text');

@@ -55,7 +55,6 @@ function plotConnectors(gd, plotinfo, cdModule, traceLayer) {
             var connector = d3.select(this);
             var shape = '';
 
-
             var sAxis = (isHorizontal) ? xa : ya;
             var pAxis = (isHorizontal) ? ya : xa;
 
