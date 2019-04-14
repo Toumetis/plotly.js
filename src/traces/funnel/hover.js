@@ -8,6 +8,7 @@
 
 'use strict';
 
+var hoverLabelText = require('../../plots/cartesian/axes').hoverLabelText;
 var opacity = require('../../components/color').opacity;
 var hoverOnBars = require('../bar/hover').hoverOnBars;
 
@@ -17,10 +18,25 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode) {
 
     var cd = point.cd;
     var trace = cd[0].trace;
+    var isHorizontal = (trace.orientation === 'h');
+
+    var vAxis = isHorizontal ? pointData.xa : pointData.ya;
+
+    function formatNumber(a) {
+        return hoverLabelText(vAxis, a);
+    }
 
     // the closest data point
     var index = point.index;
     var di = cd[index];
+    var d0 = cd[0] || {};
+
+    var sizeLetter = isHorizontal ? 'x' : 'y';
+
+    point[sizeLetter + 'LabelVal'] = formatNumber(di.s);
+
+    // display ratio to initial value
+    point.extraText = formatNumber(100 * di.s / d0.s |0) + '%';
 
     point.color = getTraceColor(trace, di);
 
