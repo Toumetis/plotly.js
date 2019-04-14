@@ -12,6 +12,9 @@
                 "26.06"
             ],
             "name": "Orange Juice",
+            "marker": {
+                "color": "rgb(255, 102, 97)"
+            },
             "type": "funnel"
         },
         {
@@ -26,6 +29,9 @@
                 "26.14"
             ],
             "name": "Vitamin C",
+            "marker": {
+                "color": "rgb(0, 196, 200)"
+            },
             "type": "funnel"
         },
         {
@@ -235,7 +241,7 @@
         "dragmode": "zoom",
         "funnelmode": "group",
         "funnelgap": 0.2,
-        "funnelgroupgap": 0.1,
+        "funnelgroupgap": 0,
         "boxmode": "overlay",
         "separators": ".,",
         "hidesources": false
